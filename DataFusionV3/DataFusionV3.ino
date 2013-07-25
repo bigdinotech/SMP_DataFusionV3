@@ -133,10 +133,7 @@ void loop()
         }
         case 3:
         {
-          if(!overrideCAS)
-          {
-            CASModule(packetBuffer);
-          }
+          CASModule(packetBuffer);
           break;
         }
         case 10:

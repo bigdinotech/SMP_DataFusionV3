@@ -123,175 +123,177 @@ void CASModule(byte packet[])
   byte dist = packet[2];
   byte loc = packet[3];
 
-  if(loc == 'F')
+  if(!overrideCAS)
   {
-    if(dist <= 12)
+    if(loc == 'F')
     {
-      if(lastMoveDir == 'q' || lastMoveDir == 'w' || lastMoveDir == 'e' || lastMoveDir == 'Q' || lastMoveDir == 'W' || lastMoveDir == 'E')
+      if(dist <= 12)
       {
-        emergencyStop();
-        //stopMotors();
+        if(lastMoveDir == 'q' || lastMoveDir == 'w' || lastMoveDir == 'e' || lastMoveDir == 'Q' || lastMoveDir == 'W' || lastMoveDir == 'E')
+        {
+          emergencyStop();
+          //stopMotors();
+        }
+        maxFspeed = 0;
+        frontFlag = true;
       }
-      maxFspeed = 0;
-      frontFlag = true;
-    }
-    else if(dist <= 16)
-    {
-      maxFspeed = 1;
-      frontFlag = false;
-    }
-    else if(dist <= 24)
-    {
-      maxFspeed = 2;
-      frontFlag = false;
-    }
-    else if(dist <= 36)
-    {
-      maxFspeed = 3;
-      frontFlag = false;
-    }
-    else if(dist <= 48)
-    {
-      maxFspeed = 4;
-      frontFlag = false;
-    }
-    else
-    {
-      maxFspeed++;
-      if(maxFspeed >= 10)
+      else if(dist <= 16)
       {
-        maxFspeed = 10;
+          maxFspeed = 1;
+          frontFlag = false;
+      }
+      else if(dist <= 24)
+      {
+        maxFspeed = 2;
         frontFlag = false;
       }
-    }
-  }
-  else if(loc == 'B')
-  {
-    if(dist <= 12)
-    {
-      if(lastMoveDir == 'z' || lastMoveDir == 's' || lastMoveDir == 'c' || lastMoveDir == 'Z' || lastMoveDir == 'S' || lastMoveDir == 'C')
+      else if(dist <= 36)
       {
-        emergencyStop();
-        //stopMotors();
+        maxFspeed = 3;
+        frontFlag = false;
       }
-      maxBspeed = 0;
-      backFlag = true;
-    }
-    else if(dist <= 16)
-    {
-      maxBspeed = 1;
-      backFlag = false;
-    }
-    else if(dist <= 24)
-    {
-      maxBspeed = 2;
-      backFlag = false;
-    }
-    else if(dist <= 36)
-    {
-      maxBspeed = 3;
-      backFlag = false;
-    }
-    else if(dist <= 48)
-    {
-      maxBspeed = 4;
-      backFlag = false;
-    }
-    else
-    {
-      maxBspeed++;
-      if(maxBspeed >= 10)
+      else if(dist <= 48)
       {
-        maxBspeed = 10;
+        maxFspeed = 4;
+        frontFlag = false;
+      }
+      else
+      {
+        maxFspeed++;
+        if(maxFspeed >= 10)
+        {
+          maxFspeed = 10;
+          frontFlag = false;
+        }
+      }
+    }
+    else if(loc == 'B')
+    {
+      if(dist <= 12)
+      {
+        if(lastMoveDir == 'z' || lastMoveDir == 's' || lastMoveDir == 'c' || lastMoveDir == 'Z' || lastMoveDir == 'S' || lastMoveDir == 'C')
+        {
+          emergencyStop();
+          //stopMotors();
+        }
+        maxBspeed = 0;
+        backFlag = true;
+      }
+      else if(dist <= 16)
+      {
+        maxBspeed = 1;
         backFlag = false;
       }
-    }
-  }
-  else if(loc == 'L')
-  {
-    if(dist <= 12)
-    {
-      if(lastMoveDir == 'q' || lastMoveDir == 'a' || lastMoveDir == 'z' || lastMoveDir == 'Q' || lastMoveDir == 'A' || lastMoveDir == 'Z')
+      else if(dist <= 24)
       {
-        emergencyStop();
-        //stopMotors();
+        maxBspeed = 2;
+        backFlag = false;
       }
-      maxLspeed = 0;
-      leftFlag = true;
-    }
-    else if(dist <= 16)
-    {
-      maxLspeed = 1;
-      leftFlag = false;
-    }
-    else if(dist <= 24)
-    {
-      maxLspeed = 2;
-      leftFlag = false;
-    }
-    else if(dist <= 36)
-    {
-      maxLspeed = 3;
-      leftFlag = false;
-    }
-    else if(dist <= 48)
-    {
-      maxLspeed = 4;
-      leftFlag = false;
-    }
-    else
-    {
-      maxLspeed++;
-      if(maxLspeed >= 10)
+      else if(dist <= 36)
       {
-        maxLspeed = 10;
+        maxBspeed = 3;
+        backFlag = false;
+      }
+      else if(dist <= 48)
+      {
+        maxBspeed = 4;
+        backFlag = false;
+      }
+      else
+      {
+        maxBspeed++;
+        if(maxBspeed >= 10)
+        {
+          maxBspeed = 10;
+          backFlag = false;
+        }
+      }
+    }
+    else if(loc == 'L')
+    {
+      if(dist <= 12)
+      {
+        if(lastMoveDir == 'q' || lastMoveDir == 'a' || lastMoveDir == 'z' || lastMoveDir == 'Q' || lastMoveDir == 'A' || lastMoveDir == 'Z')
+        {
+          emergencyStop();
+          //stopMotors();
+        }
+        maxLspeed = 0;
+        leftFlag = true;
+      }
+      else if(dist <= 16)
+      {
+        maxLspeed = 1;
         leftFlag = false;
       }
-    }
-  }
-  else if(loc == 'R')
-  {
-    if(dist <= 12)
-    {
-      if(lastMoveDir == 'e' || lastMoveDir == 'd' || lastMoveDir == 'c' || lastMoveDir == 'E' || lastMoveDir == 'D' || lastMoveDir == 'C')
+      else if(dist <= 24)
       {
-        emergencyStop();
-        //stopMotors();
+        maxLspeed = 2;
+        leftFlag = false;
       }
-      maxRspeed = 0;
-      rightFlag = true;
-    }
-    else if(dist <= 16)
-    {
-      maxRspeed = 1;
-      rightFlag = false;
-    }
-    else if(dist <= 24)
-    {
-      maxRspeed = 2;
-      rightFlag = false;
-    }
-    else if(dist <= 36)
-    {
-      maxRspeed = 3;
-      rightFlag = false;
-    }
-    else if(dist <= 48)
-    {
-      maxRspeed = 4;
-      rightFlag = false;
-    }
-    else
-    {
-      maxRspeed++;
-      if(maxRspeed >= 10)
+      else if(dist <= 36)
       {
-        maxRspeed = 10;
+        maxLspeed = 3;
+        leftFlag = false;
+      }
+      else if(dist <= 48)
+      {
+        maxLspeed = 4;
+        leftFlag = false;
+      }
+      else
+      {
+        maxLspeed++;
+        if(maxLspeed >= 10)
+        {
+          maxLspeed = 10;
+          leftFlag = false;
+        }
+      }
+    }
+    else if(loc == 'R')
+    {
+      if(dist <= 12)
+      {
+        if(lastMoveDir == 'e' || lastMoveDir == 'd' || lastMoveDir == 'c' || lastMoveDir == 'E' || lastMoveDir == 'D' || lastMoveDir == 'C')
+        {
+          emergencyStop();
+          //stopMotors();
+        }
+        maxRspeed = 0;
+        rightFlag = true;
+      }
+      else if(dist <= 16)
+      {
+        maxRspeed = 1;
         rightFlag = false;
       }
+      else if(dist <= 24)
+      {
+        maxRspeed = 2;
+        rightFlag = false;
+      }
+      else if(dist <= 36)
+      {
+        maxRspeed = 3;
+        rightFlag = false;
+      }
+      else if(dist <= 48)
+      {
+        maxRspeed = 4;
+        rightFlag = false;
+      }
+      else
+      {
+        maxRspeed++;
+        if(maxRspeed >= 10)
+        {
+          maxRspeed = 10;
+          rightFlag = false;
+        }
+      }
     }
   }
-
   if(debugEnable)
   {
     Serial.println("*****CAS Module*****");
