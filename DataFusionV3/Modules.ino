@@ -109,9 +109,11 @@ void controlModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -312,9 +314,11 @@ void CASModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
   //Rear CAS not ocnnected
@@ -348,9 +352,11 @@ void LightModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -400,9 +406,11 @@ void SmartPowerModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -431,9 +439,11 @@ void RFIDModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -528,9 +538,11 @@ void GPSModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -579,9 +591,11 @@ void IMU_Module(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -616,9 +630,11 @@ void compassModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -666,9 +682,11 @@ void accelerometerModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 
@@ -699,9 +717,11 @@ void environmentModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -750,9 +770,11 @@ void gasModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -780,9 +802,11 @@ void cameraModule(byte packet[])
     else
     {
       Serial1.write(headerValue);
+      Serial.write(headerValue);
       for(int i = 0; i < packet[1] + 3; i++)
       {
         Serial1.write(packet[i]);
+        Serial.write(packet[i]);
       }
     }
   }
@@ -866,9 +890,11 @@ void heartRateModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
@@ -938,9 +964,11 @@ void unidentifiedModule(byte packet[])
   else
   {
     Serial1.write(headerValue);
+    Serial.write(headerValue);
     for(int i = 0; i < packet[1] + 3; i++)
     {
       Serial1.write(packet[i]);
+      Serial.write(packet[i]);
     }
   }
 }
