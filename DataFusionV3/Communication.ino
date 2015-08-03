@@ -2,6 +2,7 @@
 //################################################################################################
 void readSerialData()
 {
+  readSerial0();
   readSerial1();
   /**
   switch(serialScheduler)
@@ -33,6 +34,105 @@ void readSerialData()
 //################################################################################################
 void readSerial0()
 {
+  //int i = 0;
+  //byte remoteBuffer[64];
+  int i = 0;
+  sBuff = 0;
+  byte dataLength = 0;
+  unsigned long startingTime = millis();
+  unsigned long currentTime;
+  boolean readFlag = true;
+  if(Serial.available()>=5)
+  {
+    sBuff = Serial.read();    //Header Byte
+    while((sBuff != headerValue) && (Serial.available())) 
+    {
+      if(debugEnable)
+      {
+        Serial.print("Module header error: ");
+        Serial.println(sBuff);
+        Serial1.print("Module header error:");
+        Serial1.println(sBuff);
+      }
+      sBuff = Serial.read(); //read a byte
+    }
+    if(sBuff == headerValue)
+    {
+      sBuff = Serial.read();   //read the ID byte
+      packetBuffer[i] = sBuff;  //place module ID into packet buffer
+      i++;
+      dataLength = Serial.read();   //read the dataLength byte
+      packetBuffer[i] = dataLength;  //place data length into packet buffer
+      i++;
+      startingTime = millis();
+      //read the rest of the packet
+      while(((i<(dataLength + 3)) && readFlag))
+      {
+        if(Serial.available())
+        {
+          packetBuffer[i] = Serial.read();
+          i++;
+        }
+        else
+        {
+          //wait for next byte
+          currentTime = millis();
+          if((currentTime - startingTime) > 50)  //50 ms timeout
+          {
+            readFlag = false;
+            if(debugEnable)
+            {
+              Serial.print("Data Timout!");              
+              Serial1.print("Data Timout!"); 
+            }
+          }
+        }
+      }
+      modID = processData(packetBuffer, validData);
+    } 
+    else
+    {
+      if(debugEnable)
+      {
+        Serial.print("Packet Error");
+        Serial1.print("Packet Error");
+        errorControl();
+      }
+    }
+  }
+  if(validData)
+  {
+    switch(modID)
+    {
+      case 0:
+      {
+        break;
+      }
+      case 1:
+      {
+        controlModule(packetBuffer);
+        break;
+      }
+    }
+  }
+  /**
+  if(Serial.available()>=5)
+  {
+    while(Serial.available())
+    {
+      remoteBuffer[i] = Serial.read();
+      delayMicroseconds(21); //delay some time since Serial has a lower baud rate right now
+      i++;
+    }
+    if(remoteBuffer[1] == 1)
+    {
+      Serial.println("remote motor command");
+      byte dir = remoteBuffer[3];
+      byte spd = remoteBuffer[4];
+      moveMotor(dir, spd);
+    }
+  }
+  **/
 }
 //################################################################################################
 //################################################################################################
@@ -162,6 +262,11 @@ int processData(byte packet[], boolean &validData)
     validData = false;
   }
   return ID;
+}
+//################################################################################################
+//################################################################################################
+void processCommand(byte packet[])
+{
 }
 //################################################################################################
 //################################################################################################
